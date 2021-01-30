@@ -1,0 +1,6 @@
+.env
+.vscode
+env
+grocery_project/__pycache__
+grocery_app/__pycache__
+grocery_app/migrations
