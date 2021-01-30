@@ -1,0 +1,41 @@
+{% extends "grocery_app/layout.html" %}
+{% load static %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+  <h1>Create an account</h1>
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="first_name">First Name</label>
+        <input type="text" class="form-control" id="first_name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="last_name">Last Name</label>
+        <input type="password" class="form-control" id="last_name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input type="password" class="form-control" id="email">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_password">
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Sign Up" class="btn btn-danger">
+    </div>
+  </form>
+</div>
+{% endblock %}
