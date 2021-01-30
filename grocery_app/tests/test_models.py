@@ -1,6 +1,30 @@
 from datetime import datetime
 from django.test import TestCase
-from ..models import Item
+from ..models import Item, User, GroceryList
+
+
+class UserTest(TestCase):
+    ''' Test module for User model '''
+
+    def setUp(self):
+        User.objects.create(
+            username='test_user1',
+            email='test_user1@test.com',
+            password='test_pass'
+        )
+        User.objects.create(
+            username='test_user2',
+            email='test_user2@test.com',
+            password='test_pass'
+        )
+
+    def test_username(self):
+        USER1_USERNAME = 'test_user1'
+        USER2_USERNAME = 'test_user2'
+        user1 = User.objects.get(username=USER1_USERNAME)
+        user2 = User.objects.get(username=USER2_USERNAME)
+        self.assertEqual(user1.username, USER1_USERNAME)
+        self.assertEqual(user2.username, USER2_USERNAME)
 
 
 class ItemTest(TestCase):
@@ -25,3 +49,32 @@ class ItemTest(TestCase):
         milk = Item.objects.get(name='Milk')
         self.assertEqual(chicken.__str__(), 'Chicken')
         self.assertEqual(milk.__str__(), 'Milk')
+
+
+class GroceryListTest(TestCase):
+    ''' Test module for GroceryList model '''
+
+    def setUp(self):
+        # create user
+        test_user = User.objects.create(
+            username='test_user',
+            email='test_email@test.com',
+            password='test_pass'
+        )
+        # create item
+        chicken = Item.objects.create(
+            name='Chicken',
+            quantity='1kg',
+            status='BOUGHT',
+            date=datetime.now().date()
+        )
+        milk = Item.objects.create(
+            name='Milk',
+            quantity='1 ltr',
+            status='PENDING',
+            date=datetime.now().date()
+        )
+
+        # create grocery list
+        GroceryList.objects.create(user=test_user, item=chicken)
+        GroceryList.objects.create(user=test_user, item=milk)
