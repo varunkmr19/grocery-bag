@@ -27,19 +27,21 @@
   <div class="row mt-4">
     <!--- -->
     <!-- Loop This -->
-    {% for list in grocery %}
+    {% for item in grocery %}
     <div class="col-lg-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ list.item.name }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ list.item.quantity }}</h6>
-          {% if list.item.status == 'BOUGHT' %}
-          <p class="text-success">{{ list.item.status }}</p>
-          {% elif list.item.status == 'PENDING' %}
-          <p class="text-info">{{ list.item.status }}</p>
+          <h5 class="card-title">{{ item.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ item.quantity }}</h6>
+          {% if item.status == 'BOUGHT' %}
+          <p class="text-success">{{ item.status }}</p>
+          {% elif item.status == 'PENDING' %}
+          <p class="text-info">{{ item.status }}</p>
           {% else %}
-          <p class="text-danger">{{ list.item.status }}</p>
+          <p class="text-danger">{{ item.status }}</p>
           {% endif %}
+          <a href="#" class="card-link">Update</a>
+          <a href="#" class="card-link">Delete</a>
         </div>
       </div>
     </div>
@@ -47,15 +49,6 @@
     <div class="alert alert-danger" role="alert">Bag is empty! Please add items</div>
     {% endfor %}
     <!-- // Loop -->
-    <div class="col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Posto</h5>
-          <h6 class="card-subtitle mb-2 text-muted">50gms</h6>
-          <p class="text-info">PENDING</p>
-        </div>
-      </div>
-    </div>
 
   </div>
 </div>

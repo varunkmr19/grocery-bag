@@ -10,6 +10,8 @@ class User(AbstractUser):
 
 
 class Item(models.Model):
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='item')
     ITEM_STATUS = (
         ('PENDING', 'PENDING'),
         ('BOUGHT', 'BOUGHT'),
@@ -23,13 +25,3 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class GroceryList(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='list')
-    item = models.ForeignKey(
-        Item, on_delete=models.CASCADE, related_name='item_list')
-
-    def __str__(self):
-        return self.user.username

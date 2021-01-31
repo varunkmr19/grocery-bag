@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.test import TestCase
-from ..models import Item, User, GroceryList
+from ..models import Item, User
 
 
 class UserTest(TestCase):
@@ -49,32 +49,3 @@ class ItemTest(TestCase):
         milk = Item.objects.get(name='Milk')
         self.assertEqual(chicken.__str__(), 'Chicken')
         self.assertEqual(milk.__str__(), 'Milk')
-
-
-class GroceryListTest(TestCase):
-    ''' Test module for GroceryList model '''
-
-    def setUp(self):
-        # create user
-        test_user = User.objects.create(
-            username='test_user',
-            email='test_email@test.com',
-            password='test_pass'
-        )
-        # create item
-        chicken = Item.objects.create(
-            name='Chicken',
-            quantity='1kg',
-            status='BOUGHT',
-            date=datetime.now().date()
-        )
-        milk = Item.objects.create(
-            name='Milk',
-            quantity='1 ltr',
-            status='PENDING',
-            date=datetime.now().date()
-        )
-
-        # create grocery list
-        GroceryList.objects.create(user=test_user, item=chicken)
-        GroceryList.objects.create(user=test_user, item=milk)
