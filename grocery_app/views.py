@@ -9,8 +9,13 @@ from . models import User
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'grocery_app/layout.html')
+class IndexView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            # get grocery list
+            return render(request, 'grocery_app/index.html')
+        else:
+            return HttpResponseRedirect(reverse('login'))
 
 
 class LoginView(View):
