@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db import IntegrityError
-from . models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from . models import GroceryList, User, Item
 
 # Create your views here.
 
@@ -13,7 +14,11 @@ class IndexView(View):
     def get(self, request):
         if request.user.is_authenticated:
             # get grocery list
-            return render(request, 'grocery_app/index.html')
+            grocery_list = GroceryList.objects.filter(user=request.user).all()
+
+            return render(request, 'grocery_app/index.html', {
+                'grocery': grocery_list
+            })
         else:
             return HttpResponseRedirect(reverse('login'))
 
@@ -75,3 +80,28 @@ class RegistrationView(View):
 
     def get(self, request):
         return render(request, 'grocery_app/register.html')
+
+
+class AddItem(LoginRequiredMixin, View):
+    def post(self, request):
+        # create new item
+        name = request.POST['item_name']
+        quantity = request.POST['quantity']
+        date = request.POST['date']
+        status = request.POST['status']
+        new_item = Item(
+            name=name,
+            quantity=quantity,
+            status=status,
+            date=date
+        )
+        new_item.save()
+
+        # add item to grocery list
+        grocery_list = GroceryList(user=request.user, item=new_item)
+        grocery_list.save()
+
+        return HttpResponseRedirect(reverse('index'))
+
+    def get(self, request):
+        return render(request, 'grocery_app/add.html')

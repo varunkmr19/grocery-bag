@@ -3,8 +3,6 @@
 
 {% block title %} Home {% endblock %}
 
-{% block username %} {{ request.user.username }} {% endblock %}
-
 {% block body %}
 <div class="container mt-5">
   <!-- top -->
@@ -29,26 +27,26 @@
   <div class="row mt-4">
     <!--- -->
     <!-- Loop This -->
+    {% for list in grocery %}
     <div class="col-lg-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Tomato</h5>
-          <h6 class="card-subtitle mb-2 text-muted">2 Pcs.</h6>
-          <p class="text-success">BOUGHT</p>
+          <h5 class="card-title">{{ list.item.name }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ list.item.quantity }}</h6>
+          {% if list.item.status == 'BOUGHT' %}
+          <p class="text-success">{{ list.item.status }}</p>
+          {% elif list.item.status == 'PENDING' %}
+          <p class="text-info">{{ list.item.status }}</p>
+          {% else %}
+          <p class="text-danger">{{ list.item.status }}</p>
+          {% endif %}
         </div>
       </div>
     </div>
+    {% empty %}
+    <div class="alert alert-danger" role="alert">Bag is empty! Please add items</div>
+    {% endfor %}
     <!-- // Loop -->
-    <div class="col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Chicken</h5>
-          <h6 class="card-subtitle mb-2 text-muted">2Kgs</h6>
-          <p class="text-danger">NOT AVAILABLE</p>
-        </div>
-      </div>
-    </div>
-
     <div class="col-lg-4">
       <div class="card">
         <div class="card-body">

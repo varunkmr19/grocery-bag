@@ -32,4 +32,4 @@ class GroceryList(models.Model):
         Item, on_delete=models.CASCADE, related_name='item_list')
 
     def __str__(self):
-        return self.user.first_name
+        return self.user.username
