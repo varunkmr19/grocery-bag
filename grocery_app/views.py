@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.views.generic.edit import DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . models import User, Item
@@ -103,3 +104,9 @@ class AddItem(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'grocery_app/add.html')
+
+
+class ItemDelete(DeleteView):
+    model = Item
+    template_name = 'grocery_app/delete.html'
+    success_url = reverse_lazy('index')
