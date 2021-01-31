@@ -72,3 +72,6 @@ class RegistrationView(View):
             })
         login(request, user)
         return HttpResponseRedirect(reverse('index'))
+
+    def get(self, request):
+        return render(request, 'grocery_app/register.html')

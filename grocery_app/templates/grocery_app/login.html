@@ -7,7 +7,9 @@
 <div class="container mt-5">
   <h1>Login</h1>
   {% if error %}
-  <p>{{ error }}</p>
+  <div class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
   {% endif %}
   <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
