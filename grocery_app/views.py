@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.views.generic import View, ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
+import json
 from . models import User, Item
 
 # Create your views here.
@@ -22,6 +23,17 @@ class IndexView(View):
             })
         else:
             return HttpResponseRedirect(reverse('login'))
+
+
+def filter_by_date(request):
+    grocery_list = Item.objects.filter(owner=request.user).all()
+    if request.method == 'POST':
+        date = request.POST['date']
+        grocery_list = grocery_list.filter(date=date)
+
+    return render(request, 'grocery_app/index.html', {
+        'grocery': grocery_list
+    })
 
 
 class LoginView(View):

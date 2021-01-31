@@ -12,12 +12,13 @@
     </div>
     <div class="col-lg-6 float-right">
       <div class="row">
-        <div class="col-lg-8">
-          <!-- Date Filtering-->
-          <input type="date" class="form-control">
-        </div>
-        <div class="col-lg-4">
-          <input type="submit" class="btn btn-danger" value="filter">
+        <div class="col d-flex justify-content-end">
+          <form action="{% url 'filter' %}" method="POST" class="form-inline">
+            {% csrf_token %}
+            <label class="sr-only" for="date">Date</label>
+            <input type="date" class="form-control mb-2 mr-sm-2" id="date" name="date" placeholder="dd/mm/yyyy">
+            <button type="submit" class="btn btn-danger mb-2">Filter</button>
+          </form>
         </div>
       </div>
     </div>
