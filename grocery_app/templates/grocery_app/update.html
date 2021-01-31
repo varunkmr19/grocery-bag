@@ -1,0 +1,18 @@
+{% extends "grocery_app/layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} Update Item {% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+  <h1>Update Grocery List</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    <div class="form-group">
+      <input type="submit" value="Update" class="btn btn-danger">
+    </div>
+  </form>
+</div>
+{% endblock %}

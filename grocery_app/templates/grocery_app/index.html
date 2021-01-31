@@ -40,7 +40,7 @@
           {% else %}
           <p class="text-danger">{{ item.status }}</p>
           {% endif %}
-          <a href="#" class="card-link">Update</a>
+          <a href="{% url 'update' item.pk %}" class="card-link">Update</a>
           <a href="{% url 'delete' item.pk %}" class="card-link">Delete</a>
         </div>
       </div>

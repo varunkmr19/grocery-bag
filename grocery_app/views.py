@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -106,7 +106,14 @@ class AddItem(LoginRequiredMixin, View):
         return render(request, 'grocery_app/add.html')
 
 
-class ItemDelete(DeleteView):
+class DeleteItem(LoginRequiredMixin, DeleteView):
     model = Item
     template_name = 'grocery_app/delete.html'
+    success_url = reverse_lazy('index')
+
+
+class UpdateItem(LoginRequiredMixin, UpdateView):
+    model = Item
+    template_name = 'grocery_app/update.html'
+    fields = ('name', 'quantity', 'status', 'date')
     success_url = reverse_lazy('index')
